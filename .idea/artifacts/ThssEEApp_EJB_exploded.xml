@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-ejb" name="ThssEEApp:EJB exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/ThssEEApp_EJB_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="ThssEEApp/ejb/EJB" />
+      <element id="module-output" name="ThssEEApp" />
+      <element id="module-output" name="ThssJPAApp" />
+    </root>
+  </artifact>
+</component>

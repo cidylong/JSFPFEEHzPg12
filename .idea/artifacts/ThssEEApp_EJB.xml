@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="ejb-jar" name="ThssEEApp:EJB">
+    <output-path>$PROJECT_DIR$/out/artifacts/ThssEEApp_EJB</output-path>
+    <root id="archive" name="ThssEEApp.jar">
+      <element id="artifact" artifact-name="ThssEEApp:EJB exploded" />
+    </root>
+  </artifact>
+</component>

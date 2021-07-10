@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ThssJPAApp:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ThssJPAApp_jar</output-path>
+    <root id="archive" name="ThssJPAApp.jar">
+      <element id="module-output" name="ThssJPAApp" />
+      <element id="jpa-descriptors" facet="ThssJPAApp/jpa/JPA" />
+    </root>
+  </artifact>
+</component>

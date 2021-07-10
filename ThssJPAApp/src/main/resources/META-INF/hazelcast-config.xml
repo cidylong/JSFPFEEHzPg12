@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hazelcast xmlns="http://www.hazelcast.com/schema/config"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.hazelcast.com/schema/config
+           http://www.hazelcast.com/schema/config/hazelcast-config-4.2.xsd">
+
+    <cluster-name>thss</cluster-name>
+    <properties>
+        <property name="hazelcast.health.monitoring.level">NOISY</property>
+        <!--<property name="hazelcast.jmx">false</property>
+        <property name="hazelcast.wait.seconds.before.join">2</property>
+        <property name="hazelcast.initial.min.cluster.size">3</property>
+        <property name="hazelcast.connect.all.wait.seconds">30</property>
+        <property name="hazelcast.operation.call.timeout.millis">30000</property>
+        <property name="hazelcast.discovery.enabled">true</property>
+        <property name="fish.payara.tenantcontrol.blocking.disable">true</property>-->
+    </properties>
+
+    <network>
+        <port auto-increment="true" port-count="100">5701</port>
+
+        <outbound-ports>
+
+            <ports>0</ports>
+        </outbound-ports>
+        <join>
+            <auto-detection enabled="true"/>
+            <multicast enabled="false">
+                <multicast-group>224.2.2.3</multicast-group>
+                <multicast-port>54327</multicast-port>
+            </multicast>
+            <tcp-ip enabled="false">
+                <member>10.0.1.102</member>
+                <member>10.0.1.152</member>
+
+            </tcp-ip>
+            <aws enabled="false">
+            </aws>
+            <gcp enabled="false">
+            </gcp>
+            <azure enabled="false">
+            </azure>
+            <kubernetes enabled="false">
+            </kubernetes>
+            <eureka enabled="false">
+                <self-registration>true</self-registration>
+                <namespace>hazelcast</namespace>
+            </eureka>
+            <discovery-strategies>
+            </discovery-strategies>
+        </join>
+        <interfaces enabled="false">
+            <interface>10.10.1.*</interface>
+        </interfaces>
+        <ssl enabled="false"/>
+        <socket-interceptor enabled="false"/>
+        <symmetric-encryption enabled="false">
+
+            <algorithm>PBEWithMD5AndDES</algorithm>
+
+            <salt>thesalt</salt>
+
+            <password>thepass</password>
+
+            <iteration-count>19</iteration-count>
+        </symmetric-encryption>
+        <failure-detector>
+            <icmp enabled="false"/>
+        </failure-detector>
+    </network>
+
+    <partition-group enabled="true" group-type="PER_MEMBER"/>
+    <executor-service name="default">
+        <!--Queue capacity. 0 means Integer.MAX_VALUE.-->
+        <queue-capacity>0</queue-capacity>
+        <pool-size>16</pool-size>
+        <statistics-enabled>true</statistics-enabled>
+    </executor-service>
+    <durable-executor-service name="default">
+        <capacity>100</capacity>
+        <durability>1</durability>
+        <pool-size>16</pool-size>
+        <statistics-enabled>true</statistics-enabled>
+    </durable-executor-service>
+    <scheduled-executor-service name="default">
+        <capacity>100</capacity>
+        <durability>1</durability>
+        <pool-size>16</pool-size>
+        <merge-policy batch-size="100">com.hazelcast.spi.merge.PutIfAbsentMergePolicy</merge-policy>
+        <statistics-enabled>true</statistics-enabled>
+    </scheduled-executor-service>
+    <security>
+        <client-block-unmapped-actions>true</client-block-unmapped-actions>
+    </security>
+    <queue name="default">
+
+        <max-size>0</max-size>
+
+        <backup-count>1</backup-count>
+
+
+        <async-backup-count>0</async-backup-count>
+
+        <empty-queue-ttl>-1</empty-queue-ttl>
+
+        <merge-policy batch-size="100">com.hazelcast.spi.merge.PutIfAbsentMergePolicy</merge-policy>
+    </queue>
+    <map name="default">
+        <in-memory-format>BINARY</in-memory-format>
+        <metadata-policy>CREATE_ON_UPDATE</metadata-policy>
+        <backup-count>1</backup-count>
+        <async-backup-count>0</async-backup-count>
+        <time-to-live-seconds>0</time-to-live-seconds>
+        <max-idle-seconds>0</max-idle-seconds>
+        <eviction eviction-policy="NONE" max-size-policy="PER_NODE" size="0"/>
+        <merge-policy batch-size="100">com.hazelcast.spi.merge.PutIfAbsentMergePolicy</merge-policy>
+        <cache-deserialized-values>INDEX-ONLY</cache-deserialized-values>
+        <statistics-enabled>true</statistics-enabled>
+        <per-entry-stats-enabled>false</per-entry-stats-enabled>
+    </map>
+    <map name="apply">
+        <time-to-live-seconds>2400</time-to-live-seconds>
+        <in-memory-format>OBJECT</in-memory-format>
+        <backup-count>1</backup-count>
+        <async-backup-count>0</async-backup-count>
+        <read-backup-data>true</read-backup-data>
+        <map-store enabled="true" initial-mode="EAGER">
+            <class-name>com.longz.thss.github.jpa.mapstore.ApplyMapStore</class-name>
+            <write-delay-seconds>3</write-delay-seconds>
+            <write-batch-size>100</write-batch-size>
+            <write-coalescing>true</write-coalescing>
+        </map-store>
+        <indexes>
+            <index name="applyIndex">
+                <attributes>
+                    <attribute>applyId</attribute>
+                </attributes>
+            </index>
+        </indexes>
+        <!--<near-cache name="applyNear">
+            <in-memory-format>BINARY</in-memory-format>
+            <invalidate-on-change>true</invalidate-on-change>
+            <time-to-live-seconds>0</time-to-live-seconds>
+            <max-idle-seconds>600</max-idle-seconds>
+            <eviction eviction-policy="LFU" max-size-policy="ENTRY_COUNT" size="5000"/>
+            <cache-local-entries>false</cache-local-entries>
+        </near-cache>-->
+    </map>
+    <multimap name="default">
+        <backup-count>1</backup-count>
+        <value-collection-type>SET</value-collection-type>
+        <merge-policy batch-size="100">com.hazelcast.spi.merge.PutIfAbsentMergePolicy</merge-policy>
+    </multimap>
+
+    <replicatedmap name="default">
+        <in-memory-format>OBJECT</in-memory-format>
+        <async-fillup>true</async-fillup>
+        <statistics-enabled>true</statistics-enabled>
+        <merge-policy batch-size="100">com.hazelcast.spi.merge.PutIfAbsentMergePolicy</merge-policy>
+    </replicatedmap>
+
+    <list name="default">
+        <backup-count>1</backup-count>
+        <merge-policy batch-size="100">com.hazelcast.spi.merge.PutIfAbsentMergePolicy</merge-policy>
+    </list>
+
+    <set name="default">
+        <backup-count>1</backup-count>
+        <merge-policy batch-size="100">com.hazelcast.spi.merge.PutIfAbsentMergePolicy</merge-policy>
+    </set>
+
+    <reliable-topic name="default">
+        <read-batch-size>10</read-batch-size>
+        <topic-overload-policy>BLOCK</topic-overload-policy>
+        <statistics-enabled>true</statistics-enabled>
+    </reliable-topic>
+
+    <ringbuffer name="default">
+        <capacity>10000</capacity>
+        <backup-count>1</backup-count>
+        <async-backup-count>0</async-backup-count>
+        <time-to-live-seconds>0</time-to-live-seconds>
+        <in-memory-format>BINARY</in-memory-format>
+        <merge-policy batch-size="100">com.hazelcast.spi.merge.PutIfAbsentMergePolicy</merge-policy>
+    </ringbuffer>
+
+    <flake-id-generator name="default">
+        <prefetch-count>100</prefetch-count>
+        <prefetch-validity-millis>600000</prefetch-validity-millis>
+        <epoch-start>1514764800000</epoch-start>
+        <node-id-offset>0</node-id-offset>
+        <bits-sequence>6</bits-sequence>
+        <bits-node-id>16</bits-node-id>
+        <allowed-future-millis>15000</allowed-future-millis>
+        <statistics-enabled>true</statistics-enabled>
+    </flake-id-generator>
+
+    <serialization>
+        <portable-version>0</portable-version>
+        <data-serializable-factories>
+            <data-serializable-factory factory-id="1132">com.longz.thss.github.jpa.factory.ApplyDataSerializableFactory</data-serializable-factory>
+        </data-serializable-factories>
+    </serialization>
+
+    <lite-member enabled="false"/>
+
+    <cardinality-estimator name="default">
+        <backup-count>1</backup-count>
+        <async-backup-count>0</async-backup-count>
+        <merge-policy batch-size="100">HyperLogLogMergePolicy</merge-policy>
+    </cardinality-estimator>
+
+    <crdt-replication>
+        <replication-period-millis>1000</replication-period-millis>
+        <max-concurrent-replication-targets>1</max-concurrent-replication-targets>
+    </crdt-replication>
+
+    <pn-counter name="default">
+        <replica-count>2147483647</replica-count>
+        <statistics-enabled>true</statistics-enabled>
+    </pn-counter>
+
+    <cp-subsystem>
+        <cp-member-count>5</cp-member-count>
+        <group-size>3</group-size>
+        <session-time-to-live-seconds>300</session-time-to-live-seconds>
+        <session-heartbeat-interval-seconds>5</session-heartbeat-interval-seconds>
+        <missing-cp-member-auto-removal-seconds>14400</missing-cp-member-auto-removal-seconds>
+        <fail-on-indeterminate-operation-state>false</fail-on-indeterminate-operation-state>
+        <!--<persistence-enabled>true</persistence-enabled>
+        <base-dir>~/cp_dir</base-dir>-->
+        <raft-algorithm>
+            <leader-election-timeout-in-millis>2000</leader-election-timeout-in-millis>
+            <leader-heartbeat-period-in-millis>5000</leader-heartbeat-period-in-millis>
+            <max-missed-leader-heartbeat-count>5</max-missed-leader-heartbeat-count>
+            <append-request-max-entry-count>100</append-request-max-entry-count>
+            <commit-index-advance-count-to-snapshot>10000</commit-index-advance-count-to-snapshot>
+            <uncommitted-entry-count-to-reject-new-appends>100</uncommitted-entry-count-to-reject-new-appends>
+            <append-request-backoff-timeout-in-millis>100</append-request-backoff-timeout-in-millis>
+        </raft-algorithm>
+    </cp-subsystem>
+
+    <metrics enabled="true">
+        <management-center enabled="true">
+            <retention-seconds>5</retention-seconds>
+        </management-center>
+        <jmx enabled="true"/>
+        <collection-frequency-seconds>5</collection-frequency-seconds>
+    </metrics>
+
+    <instance-tracking enabled="false">
+
+    </instance-tracking>
+
+    <sql>
+        <executor-pool-size>-1</executor-pool-size>
+        <statement-timeout-millis>0</statement-timeout-millis>
+    </sql>
+</hazelcast>

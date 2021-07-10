@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>JsfEeHzPgApp</artifactId>
+        <groupId>com.longz.thss.github</groupId>
+        <version>1.0</version>
+    </parent>
+
+    <groupId>com.longz.thss.github.jpa</groupId>
+    <artifactId>ThssJPAApp</artifactId>
+    <version>1.0</version>
+    <name>ThssJPAApp</name>
+
+    <properties>
+        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <junit.version>5.7.1</junit.version>
+        <payara.version>5.2021.4</payara.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>fish.payara.extras</groupId>
+            <artifactId>payara-embedded-all</artifactId>
+            <version>${payara.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.longz.thss</groupId>
+            <artifactId>ThssHzLibModule</artifactId>
+            <version>1.0</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+        </plugins>
+    </build>
+</project>

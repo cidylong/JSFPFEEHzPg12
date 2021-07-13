@@ -42,6 +42,18 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>fish.payara.extras</groupId>
+            <artifactId>payara-embedded-all</artifactId>
+            <version>5.2021.4</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.longz.thss.github.jpa</groupId>
+            <artifactId>ThssJPAApp</artifactId>
+            <version>1.0</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>

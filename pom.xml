@@ -15,8 +15,17 @@
     </properties>
 
     <modules>
+        <module>ThssHzLibModule</module>
         <module>ThssJsfPrimeFacesApp</module>
         <module>ThssEEApp</module>
         <module>ThssJPAApp</module>
     </modules>
+    <dependencies>
+        <dependency>
+            <groupId>fish.payara.extras</groupId>
+            <artifactId>payara-embedded-all</artifactId>
+            <version>5.2021.4</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 </project>

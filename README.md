@@ -45,6 +45,7 @@ Application Platform install and configuration:
 - Node: centos8thssv2-production (centos8thssv2)
 - assign JDBC datasources to instances to enable database access
 - start all payara server instances over admin_ui by admin
+
 Development
   - Developed entity apply with IdentifiedDataSerializable implementation
 	implement MapStore

@@ -5,7 +5,13 @@
            http://www.hazelcast.com/schema/config/hazelcast-config-4.2.xsd">
 
     <cluster-name>thss</cluster-name>
+    <partition-group enabled="true" group-type="HOST_AWARE">
+        <member-group>
+            <interface>10.0.1.*</interface>
+        </member-group>
+    </partition-group>
     <listeners>
         <listener>com.longz.thss.thsshzlibmodule.listener.ThssAppListener</listener>
     </listeners>
+
 </hazelcast>

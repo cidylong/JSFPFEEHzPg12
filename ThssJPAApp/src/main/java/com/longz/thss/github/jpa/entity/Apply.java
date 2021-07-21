@@ -30,7 +30,8 @@ import javax.validation.constraints.Size;
         @NamedQuery(name = "Apply.findByProcessed", query = "SELECT a FROM Apply a WHERE a.processed = :processed"),
         @NamedQuery(name = "Apply.findByTargetOwner", query = "SELECT a FROM Apply a WHERE a.targetOwner = :targetOwner")})
 public class Apply implements IdentifiedDataSerializable, Serializable {
-    private static final long serialVersionUID = 1L;
+    /*private static final long serialVersionUID = 1L;*/
+    private static final int CLASS_ID = 1132;
     @Id
     @Basic(optional = false)
     @NotNull
@@ -81,6 +82,22 @@ public class Apply implements IdentifiedDataSerializable, Serializable {
     public Apply(String applyId) {
         this.applyId = applyId;
     }
+
+    public Apply(String applyId,String applicant, String target, String comment, String category, LocalDateTime created,String status, String responsible, LocalDateTime processed, String targetOwner){
+        this.applyId = applyId;
+        this.applicant = applicant;
+        this.target = target;
+        this.comment = comment;
+        this.category = category;
+
+        this.created = created;
+        this.status = status;
+        this.responsible = responsible;
+        this.processed = processed;
+        this.targetOwner = targetOwner;
+    }
+
+    /*public int getClassId(){return this.CLASS_ID;}*/
 
     public String getApplyId() {
         return applyId;
@@ -226,7 +243,8 @@ public class Apply implements IdentifiedDataSerializable, Serializable {
 
     @Override
     public int getClassId() {
-        return ApplyDataSerializableFactory.APPLY_TYPE;
+        /*return ApplyDataSerializableFactory.APPLY_TYPE;*/
+        return CLASS_ID;
     }
 
     @Override

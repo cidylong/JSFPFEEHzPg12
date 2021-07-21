@@ -29,7 +29,7 @@
         <async-backup-count>0</async-backup-count>
         <read-backup-data>true</read-backup-data>
         <map-store enabled="true" initial-mode="EAGER">
-            <class-name>com.longz.thss.github.jpa.mapstore.ApplyMapStore</class-name>
+            <class-name>com.longz.thss.github.jpa.mapstore.ApplyJDBCMapStore</class-name>
             <write-delay-seconds>3</write-delay-seconds>
             <write-batch-size>100</write-batch-size>
             <write-coalescing>true</write-coalescing>

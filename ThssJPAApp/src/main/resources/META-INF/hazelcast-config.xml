@@ -17,22 +17,20 @@
     </properties>
 
     <network>
-        <port auto-increment="true" port-count="100">5701</port>
-
+        <port auto-increment="true" port-count="20">5701</port>
         <outbound-ports>
-
             <ports>0</ports>
         </outbound-ports>
+        <reuse-address>true</reuse-address>
         <join>
-            <auto-detection enabled="true"/>
+            <auto-detection enabled="false"/>
             <multicast enabled="false">
                 <multicast-group>224.2.2.3</multicast-group>
                 <multicast-port>54327</multicast-port>
             </multicast>
-            <tcp-ip enabled="false">
+            <tcp-ip enabled="true">
                 <member>10.0.1.102</member>
                 <member>10.0.1.152</member>
-
             </tcp-ip>
             <aws enabled="false">
             </aws>
@@ -49,7 +47,7 @@
             <discovery-strategies>
             </discovery-strategies>
         </join>
-        <interfaces enabled="false">
+        <interfaces enabled="true">
             <interface>10.10.1.*</interface>
         </interfaces>
         <ssl enabled="false"/>
@@ -69,7 +67,7 @@
         </failure-detector>
     </network>
 
-    <partition-group enabled="true" group-type="PER_MEMBER"/>
+    <!--<partition-group enabled="true" group-type="PER_MEMBER"/>-->
     <executor-service name="default">
         <!--Queue capacity. 0 means Integer.MAX_VALUE.-->
         <queue-capacity>0</queue-capacity>
@@ -126,17 +124,18 @@
         <read-backup-data>true</read-backup-data>
         <map-store enabled="true" initial-mode="EAGER">
             <class-name>com.longz.thss.github.jpa.mapstore.ApplyMapStore</class-name>
+            <!--<class-name>com.longz.thss.github.jpa.mapstore.ApplyJDBCMapStore</class-name>-->
             <write-delay-seconds>3</write-delay-seconds>
             <write-batch-size>100</write-batch-size>
             <write-coalescing>true</write-coalescing>
         </map-store>
-        <indexes>
+        <!--<indexes>
             <index name="applyIndex">
                 <attributes>
                     <attribute>applyId</attribute>
                 </attributes>
             </index>
-        </indexes>
+        </indexes>-->
         <!--<near-cache name="applyNear">
             <in-memory-format>BINARY</in-memory-format>
             <invalidate-on-change>true</invalidate-on-change>
@@ -196,9 +195,9 @@
     </flake-id-generator>
 
     <serialization>
-        <portable-version>0</portable-version>
+        <!--<portable-version>0</portable-version>-->
         <data-serializable-factories>
-            <data-serializable-factory factory-id="1132">com.longz.thss.github.jpa.factory.ApplyDataSerializableFactory</data-serializable-factory>
+            <data-serializable-factory factory-id="11132">com.longz.thss.github.jpa.factory.ApplyDataSerializableFactory</data-serializable-factory>
         </data-serializable-factories>
     </serialization>
 
@@ -221,14 +220,12 @@
     </pn-counter>
 
     <cp-subsystem>
-        <cp-member-count>5</cp-member-count>
+        <cp-member-count>7</cp-member-count>
         <group-size>3</group-size>
         <session-time-to-live-seconds>300</session-time-to-live-seconds>
         <session-heartbeat-interval-seconds>5</session-heartbeat-interval-seconds>
         <missing-cp-member-auto-removal-seconds>14400</missing-cp-member-auto-removal-seconds>
         <fail-on-indeterminate-operation-state>false</fail-on-indeterminate-operation-state>
-        <!--<persistence-enabled>true</persistence-enabled>
-        <base-dir>~/cp_dir</base-dir>-->
         <raft-algorithm>
             <leader-election-timeout-in-millis>2000</leader-election-timeout-in-millis>
             <leader-heartbeat-period-in-millis>5000</leader-heartbeat-period-in-millis>

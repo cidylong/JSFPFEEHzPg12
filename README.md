@@ -224,4 +224,45 @@ Deployment
 		- EJB server restart successfully (apply map access works fine)
 		- check server instances from Admin_ui
 		  - DAS server dead.
+			[2021-07-22T10:09:29.458+1000] [Payara 5.2021.4] [INFO] [] [] [tid: _ThreadID=184 _ThreadName=admin-thread-pool::admin-listener(6)] [timeMillis: 1626912569458] [levelValue: 800] [[
+			Restart Instance ...]]
+
+			[2021-07-22T10:09:29.458+1000] [Payara 5.2021.4] [INFO] [] [] [tid: _ThreadID=184 _ThreadName=admin-thread-pool::admin-listener(6)] [timeMillis: 1626912569458] [levelValue: 800] [[
+			https://localhost:4848/management/domain/servers/server/ThssEJBServer/restart-instance]]
+
+			[2021-07-22T10:09:30.565+1000] [Payara 5.2021.4] [WARNING] [] [com.hazelcast.internal.server.tcp.TcpServerConnectionErrorHandler] [tid: _ThreadID=68 _ThreadName=hz.brave_feistel.cached.thread-2] [timeMillis: 1626912570565] [levelValue: 900] [[
+			[10.0.1.102]:5701 [thss] [4.2] Removing connection to endpoint [10.0.1.102]:5702 Cause => java.net.SocketException {Connection refused to address /10.0.1.102:5702}, Error-Count: 5]]
+
+			[2021-07-22T10:09:30.567+1000] [Payara 5.2021.4] [INFO] [] [fish.payara.nucleus.cluster.PayaraCluster] [tid: _ThreadID=55 _ThreadName=hz.brave_feistel.event-1] [timeMillis: 1626912570567] [levelValue: 800] [[
+			Data Grid Instance Removed 895a5463-152c-470d-8204-69c26938be21 from Address /10.0.1.102:5702]]
+
+			[2021-07-22T10:09:30.568+1000] [Payara 5.2021.4] [INFO] [] [fish.payara.nucleus.cluster.PayaraCluster] [tid: _ThreadID=55 _ThreadName=hz.brave_feistel.event-1] [timeMillis: 1626912570568] [levelValue: 800] [[
+			Data Grid Status
+			Payara Data Grid State: DG Version: 4 DG Name: thss DG Size: 1
+			Instances: {
+			DataGrid: thss Name: server Lite: false This: true UUID: 09c8ec18-15eb-4088-972f-5494e2573721 Address: /10.0.1.102:5701
+			}]]
+
+			[2021-07-22T10:09:31.450+1000] [Payara 5.2021.4] [SEVERE] [] [com.hazelcast.cp.internal.MetadataRaftGroupManager] [tid: _ThreadID=68 _ThreadName=hz.brave_feistel.cached.thread-2] [timeMillis: 1626912571450] [levelValue: 1000] [[
+			[10.0.1.102]:5701 [thss] [4.2] Member [10.0.1.102]:5702 - 895a5463-152c-470d-8204-69c26938be21 left the cluster while the CP discovery in progress!]]
+
+			[2021-07-22T10:09:31.450+1000] [Payara 5.2021.4] [WARNING] [] [com.hazelcast.cp.internal.MetadataRaftGroupManager] [tid: _ThreadID=68 _ThreadName=hz.brave_feistel.cached.thread-2] [timeMillis: 1626912571450] [levelValue: 900] [[
+			[10.0.1.102]:5701 [thss] [4.2] Terminating because of CP discovery failure...]]
+
+			[2021-07-22T10:09:31.451+1000] [Payara 5.2021.4] [WARNING] [] [com.hazelcast.instance.impl.Node] [tid: _ThreadID=68 _ThreadName=hz.brave_feistel.cached.thread-2] [timeMillis: 1626912571451] [levelValue: 900] [[
+			[10.0.1.102]:5701 [thss] [4.2] Terminating forcefully...]]
+
+			[2021-07-22T10:09:40.834+1000] [Payara 5.2021.4] [INFO] [] [javax.enterprise.system.core] [tid: _ThreadID=173 _ThreadName=admin-thread-pool::admin-listener(3)] [timeMillis: 1626912580834] [levelValue: 800] [[
+			ThssEJBServer was restarted.]]
+			
+			From above error information we may know, when EJB server instance restart, it takes over DAS port, maybe network configure or CP configure wrong, any advice please!
 		  - A while later EJB server instance dead as well.
+		- restart domain server (when EJB server instance is alive)
+		  - EJB server keep alive
+		  - go Applications
+			- try to reload ejb-application
+			- DAS server error:
+			  [2021-07-22T09:58:01.308+1000] [Payara 5.2021.4] [INFO] [] [fish.payara.nucleus.hazelcast.PayaraHazelcastTenant] [tid: _ThreadID=44 _ThreadName=hz.gallant_pasteur.partition-operation.thread-3] [timeMillis: 1626911881308] [levelValue: 800] [[
+			  BLOCKED: tenant not available: ThssEEApp_ThssEEApp_thssMapInit_JsfEeHzPgApp-EJB-thssMapInit106617283483815141, module ThssEEApp, Operation: com.hazelcast.map.impl.operation.MapSizeOperation]]
+			  
+			- EJB server hang up here for long time.

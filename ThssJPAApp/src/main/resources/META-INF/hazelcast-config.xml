@@ -21,7 +21,7 @@
         <outbound-ports>
             <ports>0</ports>
         </outbound-ports>
-        <reuse-address>true</reuse-address>
+        <reuse-address>false</reuse-address>
         <join>
             <auto-detection enabled="false"/>
             <multicast enabled="false">
@@ -48,7 +48,7 @@
             </discovery-strategies>
         </join>
         <interfaces enabled="true">
-            <interface>10.10.1.*</interface>
+            <interface>10.0.1.*</interface>
         </interfaces>
         <ssl enabled="false"/>
         <socket-interceptor enabled="false"/>

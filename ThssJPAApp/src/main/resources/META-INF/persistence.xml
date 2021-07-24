@@ -7,5 +7,6 @@
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         <jta-data-source>jdbc/PG12_ozssc_105</jta-data-source>
         <class>com.longz.thss.github.jpa.entity.Apply</class>
+        <class>com.longz.thss.github.jpa.entity.Abn</class>
     </persistence-unit>
 </persistence>

@@ -40,7 +40,7 @@ public class ApplyMapStore implements MapStore<String, Apply>, MapLoaderLifecycl
     }
 
     @Override
-    public void store(String s, Apply apply) {
+    public synchronized void store(String s, Apply apply) {
         if(!em.isJoinedToTransaction()){
             em.joinTransaction();
         }
@@ -49,7 +49,7 @@ public class ApplyMapStore implements MapStore<String, Apply>, MapLoaderLifecycl
     }
 
     @Override
-    public void storeAll(Map<String, Apply> map) {
+    public synchronized void storeAll(Map<String, Apply> map) {
         if(!em.isJoinedToTransaction()){
             em.joinTransaction();
         }
@@ -71,7 +71,7 @@ public class ApplyMapStore implements MapStore<String, Apply>, MapLoaderLifecycl
     }
 
     @Override
-    public void delete(String s) {
+    public synchronized void delete(String s) {
         if (!em.isJoinedToTransaction()) {
             em.joinTransaction();
         }
@@ -83,7 +83,7 @@ public class ApplyMapStore implements MapStore<String, Apply>, MapLoaderLifecycl
     }
 
     @Override
-    public void deleteAll(Collection<String> collection) {
+    public synchronized void deleteAll(Collection<String> collection) {
         if (!em.isJoinedToTransaction()) {
             em.joinTransaction();
         }
@@ -97,19 +97,26 @@ public class ApplyMapStore implements MapStore<String, Apply>, MapLoaderLifecycl
     }
 
     @Override
-    public Apply load(String s) {
+    public synchronized Apply load(String s) {
         return em.find(Apply.class,s);
     }
 
     @Override
-    public Map<String, Apply> loadAll(Collection<String> collection) {
+    public synchronized Map<String, Apply> loadAll(Collection<String> collection) {
         Map<String,Apply> returnMap = new HashMap<>();
-        for (String s : collection){
+        Query query = em.createNamedQuery("Apply.findAll",Apply.class);
+        List<Apply> applies = query.getResultList();
+        for (Apply apply : applies){
+            if (collection.contains(apply.getApplyId())){
+                returnMap.put(apply.getApplyId(),apply);
+            }
+        }
+        /*for (String s : collection){
             Apply apply = load(s);
             if(apply != null){
                 returnMap.put(s,apply);
             }
-        }
+        }*/
         return returnMap;
     }
 

@@ -5,6 +5,9 @@
            http://www.hazelcast.com/schema/config/hazelcast-config-4.2.xsd">
 
     <cluster-name>thss</cluster-name>
+    <listeners>
+        <listener>com.longz.thss.thsshzlibmodule.listener.ThssAppListener</listener>
+    </listeners>
     <properties>
         <property name="hazelcast.health.monitoring.level">NOISY</property>
         <!--<property name="hazelcast.jmx">false</property>
@@ -21,7 +24,7 @@
         <outbound-ports>
             <ports>0</ports>
         </outbound-ports>
-        <reuse-address>true</reuse-address>
+        <reuse-address>false</reuse-address>
         <join>
             <auto-detection enabled="false"/>
             <multicast enabled="false">
@@ -48,7 +51,7 @@
             </discovery-strategies>
         </join>
         <interfaces enabled="true">
-            <interface>10.10.1.*</interface>
+            <interface>10.0.1.*</interface>
         </interfaces>
         <ssl enabled="false"/>
         <socket-interceptor enabled="false"/>
@@ -67,7 +70,7 @@
         </failure-detector>
     </network>
 
-    <!--<partition-group enabled="true" group-type="PER_MEMBER"/>-->
+    <partition-group enabled="true" group-type="PER_MEMBER"/>
     <executor-service name="default">
         <!--Queue capacity. 0 means Integer.MAX_VALUE.-->
         <queue-capacity>0</queue-capacity>
@@ -123,8 +126,8 @@
         <async-backup-count>0</async-backup-count>
         <read-backup-data>true</read-backup-data>
         <map-store enabled="true" initial-mode="EAGER">
-            <!--<class-name>com.longz.thss.github.jpa.mapstore.ApplyMapStore</class-name>-->
-            <class-name>com.longz.thss.github.jpa.mapstore.ApplyJDBCMapStore</class-name>
+            <class-name>com.longz.thss.github.jpa.mapstore.ApplyMapStore</class-name>
+            <!--<class-name>com.longz.thss.github.jpa.mapstore.ApplyJDBCMapStore</class-name>-->
             <write-delay-seconds>3</write-delay-seconds>
             <write-batch-size>100</write-batch-size>
             <write-coalescing>true</write-coalescing>
@@ -144,6 +147,19 @@
             <eviction eviction-policy="LFU" max-size-policy="ENTRY_COUNT" size="5000"/>
             <cache-local-entries>false</cache-local-entries>
         </near-cache>-->
+    </map>
+    <map name="abn">
+        <time-to-live-seconds>2400</time-to-live-seconds>
+        <in-memory-format>OBJECT</in-memory-format>
+        <backup-count>1</backup-count>
+        <async-backup-count>0</async-backup-count>
+        <read-backup-data>true</read-backup-data>
+        <map-store enabled="true" initial-mode="EAGER">
+            <class-name>com.longz.thss.github.jpa.mapstore.AbnMapStore</class-name>
+            <write-delay-seconds>3</write-delay-seconds>
+            <write-batch-size>100</write-batch-size>
+            <write-coalescing>true</write-coalescing>
+        </map-store>
     </map>
     <multimap name="default">
         <backup-count>1</backup-count>
@@ -198,6 +214,7 @@
         <!--<portable-version>0</portable-version>-->
         <data-serializable-factories>
             <data-serializable-factory factory-id="11132">com.longz.thss.github.jpa.factory.ApplyDataSerializableFactory</data-serializable-factory>
+            <data-serializable-factory factory-id="11102">com.longz.thss.github.jpa.factory.AbnDataSerializableFactory</data-serializable-factory>
         </data-serializable-factories>
     </serialization>
 

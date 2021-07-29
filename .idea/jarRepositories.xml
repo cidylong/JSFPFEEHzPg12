@@ -4,6 +4,11 @@
     <remote-repository>
       <option name="id" value="central" />
       <option name="name" value="Central Repository" />
+      <option name="url" value="https://repo1.maven.org/maven2" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="Central Repository" />
       <option name="url" value="https://repo.maven.apache.org/maven2" />
     </remote-repository>
     <remote-repository>
@@ -50,6 +55,11 @@
       <option name="id" value="mvnrepository" />
       <option name="name" value="central repository" />
       <option name="url" value="https://mvnrepository.com/artifact/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="jboss-ga-repository" />
+      <option name="name" value="JBoss GA Tech Preview Maven Repository" />
+      <option name="url" value="https://maven.repository.redhat.com/techpreview/all" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="apacheRepository" />

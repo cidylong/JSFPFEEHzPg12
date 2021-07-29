@@ -11,7 +11,7 @@
         </member-group>
     </partition-group>
     <listeners>
-        <listener>com.longz.thss.thsshzlibmodule.listener.ThssAppListener</listener>
+        <listener>com.longz.thss.lib.listener.ThssAppListener</listener>
     </listeners>
 
 </hazelcast>

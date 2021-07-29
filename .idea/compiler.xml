@@ -28,7 +28,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="ThssHzLibModule" options="-verbose -Xlint:all,-options,-path --add-exports org.objectweb.asm.tree.analysis/com.hazelcast.logging=com.longz.thss.ThssHzLibModule --add-exports org.objectweb.asm.tree.analysis/com.hazelcast.core=com.longz.thss.ThssHzLibModule --add-exports org.objectweb.asm.tree.analysis/com.hazelcast.cluster=com.longz.thss.ThssHzLibModule" />
+      <module name="ThssHzLibModule" options="--add-exports org.objectweb.asm.tree.analysis/com.hazelcast.logging=com.longz.thss.ThssHzLibModule --add-exports org.objectweb.asm.tree.analysis/com.hazelcast.core=com.longz.thss.ThssHzLibModule --add-exports org.objectweb.asm.tree.analysis/com.hazelcast.cluster=com.longz.thss.ThssHzLibModule --add-exports org.objectweb.asm.tree.analysis/com.hazelcast.config=com.longz.thss.ThssHzLibModule --add-exports org.objectweb.asm.tree.analysis/javax.inject=com.longz.thss.ThssHzLibModule" />
     </option>
   </component>
 </project>

@@ -92,6 +92,10 @@
                         <arg>org.objectweb.asm.tree.analysis/com.hazelcast.core=com.longz.thss.ThssHzLibModule</arg>
                         <arg>--add-exports</arg>
                         <arg>org.objectweb.asm.tree.analysis/com.hazelcast.cluster=com.longz.thss.ThssHzLibModule</arg>
+                        <arg>--add-exports</arg>
+                        <arg>org.objectweb.asm.tree.analysis/com.hazelcast.config=com.longz.thss.ThssHzLibModule</arg>
+                        <arg>--add-exports</arg>
+                        <arg>org.objectweb.asm.tree.analysis/javax.inject=com.longz.thss.ThssHzLibModule</arg>
                     </compilerArgs>
                 </configuration>
             </plugin>

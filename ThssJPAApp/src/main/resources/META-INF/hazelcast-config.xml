@@ -5,9 +5,6 @@
            http://www.hazelcast.com/schema/config/hazelcast-config-4.2.xsd">
 
     <cluster-name>thss</cluster-name>
-    <listeners>
-        <listener>com.longz.thss.thsshzlibmodule.listener.ThssAppListener</listener>
-    </listeners>
     <properties>
         <property name="hazelcast.health.monitoring.level">NOISY</property>
         <!--<property name="hazelcast.jmx">false</property>
@@ -18,7 +15,9 @@
         <property name="hazelcast.discovery.enabled">true</property>
         <property name="fish.payara.tenantcontrol.blocking.disable">true</property>-->
     </properties>
-
+    <listeners>
+        <listener>com.longz.thss.thsshzlibmodule.listener.ThssAppListener</listener>
+    </listeners>
     <network>
         <port auto-increment="true" port-count="20">5701</port>
         <outbound-ports>
@@ -119,35 +118,6 @@
         <statistics-enabled>true</statistics-enabled>
         <per-entry-stats-enabled>false</per-entry-stats-enabled>
     </map>
-    <map name="apply">
-        <time-to-live-seconds>2400</time-to-live-seconds>
-        <in-memory-format>OBJECT</in-memory-format>
-        <backup-count>1</backup-count>
-        <async-backup-count>0</async-backup-count>
-        <read-backup-data>true</read-backup-data>
-        <map-store enabled="true" initial-mode="EAGER">
-            <class-name>com.longz.thss.github.jpa.mapstore.ApplyMapStore</class-name>
-            <!--<class-name>com.longz.thss.github.jpa.mapstore.ApplyJDBCMapStore</class-name>-->
-            <write-delay-seconds>3</write-delay-seconds>
-            <write-batch-size>100</write-batch-size>
-            <write-coalescing>true</write-coalescing>
-        </map-store>
-        <!--<indexes>
-            <index name="applyIndex">
-                <attributes>
-                    <attribute>applyId</attribute>
-                </attributes>
-            </index>
-        </indexes>-->
-        <!--<near-cache name="applyNear">
-            <in-memory-format>BINARY</in-memory-format>
-            <invalidate-on-change>true</invalidate-on-change>
-            <time-to-live-seconds>0</time-to-live-seconds>
-            <max-idle-seconds>600</max-idle-seconds>
-            <eviction eviction-policy="LFU" max-size-policy="ENTRY_COUNT" size="5000"/>
-            <cache-local-entries>false</cache-local-entries>
-        </near-cache>-->
-    </map>
     <map name="abn">
         <time-to-live-seconds>2400</time-to-live-seconds>
         <in-memory-format>OBJECT</in-memory-format>
@@ -156,6 +126,19 @@
         <read-backup-data>true</read-backup-data>
         <map-store enabled="true" initial-mode="EAGER">
             <class-name>com.longz.thss.github.jpa.mapstore.AbnMapStore</class-name>
+            <write-delay-seconds>3</write-delay-seconds>
+            <write-batch-size>100</write-batch-size>
+            <write-coalescing>true</write-coalescing>
+        </map-store>
+    </map>
+    <map name="apply">
+        <time-to-live-seconds>2400</time-to-live-seconds>
+        <in-memory-format>OBJECT</in-memory-format>
+        <backup-count>1</backup-count>
+        <async-backup-count>0</async-backup-count>
+        <read-backup-data>true</read-backup-data>
+        <map-store enabled="true" initial-mode="EAGER">
+            <class-name>com.longz.thss.github.jpa.mapstore.ApplyMapStore</class-name>
             <write-delay-seconds>3</write-delay-seconds>
             <write-batch-size>100</write-batch-size>
             <write-coalescing>true</write-coalescing>
@@ -213,8 +196,8 @@
     <serialization>
         <!--<portable-version>0</portable-version>-->
         <data-serializable-factories>
-            <data-serializable-factory factory-id="11132">com.longz.thss.github.jpa.factory.ApplyDataSerializableFactory</data-serializable-factory>
             <data-serializable-factory factory-id="11102">com.longz.thss.github.jpa.factory.AbnDataSerializableFactory</data-serializable-factory>
+            <data-serializable-factory factory-id="11132">com.longz.thss.github.jpa.factory.ApplyDataSerializableFactory</data-serializable-factory>
         </data-serializable-factories>
     </serialization>
 
